@@ -66,14 +66,14 @@ if st.button("Predict"):
 
     # Connect to Snowflake
     connection = connect(
-        user='JArjun0207',
-        password='Jarjun123',
-        account='grfxvwc-nz59991',
-        warehouse='FE_AND_INFERENCE_WH',
-        database='tpcds_xgboost',
-        schema='demo'
+        user = st.secrets.db_credentials_3.user,
+        password=st.secrets.db_credentials_3.password,
+        account=st.secrets.db_credentials_3.account,
+        warehouse=st.secrets.db_credentials_3.warehouse,
+        database=st.secrets.db_credentials_3.database,
+        schema=st.secrets.db_credentials_3.schema
     )
-
+    
     # Call Snowflake UDF
     with connection.cursor() as cursor:
         cursor.execute(f"SELECT TPCDS_PREDICT_CLV({','.join(map(str, input_data_df.values[0]))})")
